@@ -1,9 +1,10 @@
 package proxy;
 
+import client.NettyClient;
 import client.RpcClient;
 import lombok.extern.slf4j.Slf4j;
-import protocaol.RpcRequest;
-import protocaol.RpcResponse;
+import com.nwpu.protocaol.RpcRequest;
+import com.nwpu.protocaol.RpcResponse;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -41,15 +42,16 @@ public class RpcClientProxy implements InvocationHandler {
 
         RpcResponse rpcResponse = null;
 
-//        if (client instanceof NettyClient) {
-//            try {
-//                CompletableFuture<RpcResponse> completableFuture = (CompletableFuture<RpcResponse>) client.sendRequest(rpcRequest);
-//                rpcResponse = completableFuture.get();
-//            } catch (Exception e) {
-//                log.error("方法调用请求发送失败", e);
-//                return null;
-//            }
-//        }
+        if (client instanceof NettyClient) {
+            try {
+                CompletableFuture<RpcResponse> completableFuture = (CompletableFuture<RpcResponse>) client.sendRequest(rpcRequest);
+                rpcResponse = completableFuture.get();
+            } catch (Exception e) {
+                log.error("方法调用请求发送失败", e);
+                return null;
+            }
+        }
+//        FIXME
 //        if (client instanceof SocketClient) {
 //            rpcResponse = (RpcResponse) client.sendRequest(rpcRequest);
 //        }

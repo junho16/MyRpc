@@ -1,7 +1,7 @@
 package client;
 
-import protocaol.RpcRequest;
-import serializer.CommonSerializer;
+import com.nwpu.protocaol.RpcRequest;
+import com.nwpu.serializer.CommonSerializer;
 
 /**
  * @author Junho
