@@ -1,10 +1,13 @@
 package com.nwpu.server;
 
+
+import com.alibaba.nacos.common.http.handler.RequestHandler;
 import com.nwpu.protocaol.RpcRequest;
+import com.nwpu.protocaol.RpcResponse;
+import com.nwpu.util.factory.SingleFactory;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -14,9 +17,34 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NettyRpcServerHandler extends SimpleChannelInboundHandler<RpcRequest>{
 
+    private final RpcRequestHandler requestHandler;
+
+    public NettyRpcServerHandler() {
+        this.requestHandler = SingleFactory.getInstance(RpcRequestHandler.class);
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcRequest rpcRequest) throws Exception {
+        try {
+            if(rpcRequest.getHeartBeat()){
+                log.info("接收到客户端心跳包...");
+                return;
+            }
 
+            log.info("服务端已经接收到请求：{}" , rpcRequest);
+            Object result = requestHandler.handle(rpcRequest);
+
+            if (channelHandlerContext.channel().isActive()
+                    && channelHandlerContext.channel().isWritable()) {
+
+                channelHandlerContext.writeAndFlush(RpcResponse.success(result, rpcRequest.getRequestId()));
+
+            } else {
+                log.error("通道不可写");
+            }
+        } finally {
+            ReferenceCountUtil.release(rpcRequest);
+        }
     }
 
 

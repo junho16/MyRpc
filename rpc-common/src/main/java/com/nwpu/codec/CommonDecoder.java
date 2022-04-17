@@ -44,16 +44,20 @@ public class CommonDecoder extends ReplayingDecoder {
             log.error("无法识别的数据包: {}", packageCode);
             throw new RpcException(RpcError.UNKNOWN_PACKAGE_TYPE);
         }
+
         int serializerCode = byteBuf.readInt();
         CommonSerializer serializer = CommonSerializer.getSerializer(serializerCode);
         if (serializer == null) {
             log.error("无法识别的反序列化器: {}", serializerCode);
             throw new RpcException(RpcError.UNKNOWN_SERIALIZER);
         }
+
         int length = byteBuf.readInt();
         byte[] bytes = new byte[length];
         byteBuf.readBytes(bytes);
+
         Object obj = serializer.deserialize(bytes, packageClass);
+
         outList.add(obj);
     }
 }
