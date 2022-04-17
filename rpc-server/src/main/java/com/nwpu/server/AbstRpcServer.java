@@ -20,26 +20,29 @@ import java.util.Set;
 @Slf4j
 public abstract class AbstRpcServer implements RpcServer{
 
-    int DEFAULT_SERIALIZER = CommonSerializer.KRYO_SERIALIZER;
+    // 默认设置为json
+//    protected int DEFAULT_SERIALIZER = CommonSerializer.DEFAULT_SERIALIZER;
 
     protected String host;
 
     protected int port;
 
     /**
-     * 服务注册
+     * 服务注册（注册中心）
      */
     protected ServiceRegistry serviceRegistry;
 
     /**
-     * 用来提供之
+     * 用来注册并提供服务（本地）
      */
     protected ServiceProvider serviceProvider;
 
     public void scanServices() {
 
         String mainClassName = ReflectUtil.getStackTrace();
+
         Class<?> startClass;
+
         try {
             startClass = Class.forName(mainClassName);
             if(!startClass.isAnnotationPresent(ServiceScan.class)) {
@@ -50,12 +53,14 @@ public abstract class AbstRpcServer implements RpcServer{
             log.error("出现未知错误");
             throw new RpcException(RpcError.UNKNOWN_ERROR);
         }
+
         String basePackage = startClass.getAnnotation(ServiceScan.class).value();
         if("".equals(basePackage)) {
             basePackage = mainClassName.substring(0, mainClassName.lastIndexOf("."));
         }
 
         Set<Class<?>> classSet = ReflectUtil.getClasses(basePackage);
+
         for(Class<?> clazz : classSet) {
             if(clazz.isAnnotationPresent(RpcService.class)) {
                 String serviceName = clazz.getAnnotation(RpcService.class).name();
@@ -81,6 +86,7 @@ public abstract class AbstRpcServer implements RpcServer{
 
     /**
      * 发布 / 注册
+     * 分别保存到nacos和本地集合中
      * @param service
      * @param serviceName
      * @param <T>

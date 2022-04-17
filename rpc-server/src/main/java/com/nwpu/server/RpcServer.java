@@ -9,6 +9,9 @@ import com.nwpu.serializer.CommonSerializer;
  */
 public interface RpcServer {
 
+    // 默认为json
+    int DEFAULT_SERIALIZER = CommonSerializer.DEFAULT_SERIALIZER;
+
     void start();
 
     /**
