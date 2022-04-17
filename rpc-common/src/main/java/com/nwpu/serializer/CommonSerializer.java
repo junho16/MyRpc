@@ -1,4 +1,4 @@
-package serializer;
+package com.nwpu.serializer;
 
 /**
  * 序列化接口

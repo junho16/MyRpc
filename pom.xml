@@ -12,7 +12,7 @@
         <module>rpc-core</module>
         <module>rpc-common</module>
         <module>rpc-client</module>
-        <module>rpc-server</module>
+        <module>rpc-com.nwpu.server</module>
     </modules>
 
     <dependencies>

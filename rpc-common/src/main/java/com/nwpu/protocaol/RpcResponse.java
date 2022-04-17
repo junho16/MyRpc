@@ -1,6 +1,6 @@
-package protocaol;
+package com.nwpu.protocaol;
 
-import constant.ResponseCode;
+import com.nwpu.constant.ResponseCode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

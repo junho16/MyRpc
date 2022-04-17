@@ -1,4 +1,4 @@
-package constant;
+package com.nwpu.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
