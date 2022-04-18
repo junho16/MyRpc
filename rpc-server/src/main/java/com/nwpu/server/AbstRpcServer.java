@@ -62,18 +62,22 @@ public abstract class AbstRpcServer implements RpcServer{
         Set<Class<?>> classSet = ReflectUtil.getClasses(basePackage);
 
         for(Class<?> clazz : classSet) {
+            log.info("已扫描到:" + clazz);
             if(clazz.isAnnotationPresent(RpcService.class)) {
                 String serviceName = clazz.getAnnotation(RpcService.class).name();
                 Object obj;
                 try {
                     obj = clazz.newInstance();
+                    log.info("serviceName: " + serviceName + " ; obj: "+obj);
                 } catch (InstantiationException | IllegalAccessException e) {
                     log.error("创建 " + clazz + " 时有错误发生");
                     continue;
                 }
                 if("".equals(serviceName)) {
                     Class<?>[] interfaces = clazz.getInterfaces();
+
                     for (Class<?> oneInterface: interfaces){
+                        System.out.println(oneInterface);
                         publishService(obj, oneInterface.getCanonicalName());
                     }
                 } else {
@@ -93,6 +97,7 @@ public abstract class AbstRpcServer implements RpcServer{
      */
     @Override
     public <T> void publishService(T service, String serviceName) {
+        log.info("serviceName: " + serviceName + " ; obj: "+service);
 
         serviceProvider.addServiceProvider(service, serviceName);
 

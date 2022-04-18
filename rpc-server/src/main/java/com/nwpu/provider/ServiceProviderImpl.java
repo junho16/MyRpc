@@ -37,6 +37,9 @@ public class ServiceProviderImpl implements ServiceProvider{
         log.info("已向接口: {} 注册服务: {}",
                 service.getClass().getInterfaces(),
                 serviceName);
+        log.info("已注册service Type：" + service.getClass().getName());
+        log.info("已注册service：" + service);
+        log.info("已注册serviceName：" + serviceName);
     }
 
     @Override
