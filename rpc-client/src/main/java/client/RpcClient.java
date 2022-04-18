@@ -9,7 +9,7 @@ import com.nwpu.serializer.CommonSerializer;
  */
 public interface RpcClient {
 
-    int DEFAULT_SERIALIZER = CommonSerializer.KRYO_SERIALIZER;
+    int DEFAULT_SERIALIZER = CommonSerializer.JSON_SERIALIZER;
 
     Object sendRequest(RpcRequest rpcRequest);
 

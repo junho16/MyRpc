@@ -1,17 +1,16 @@
-package com.nwpu.server;
+package com.nwpu.server.netty;
 
 import com.nwpu.codec.CommonDecoder;
 import com.nwpu.codec.CommonEncoder;
 import com.nwpu.provider.ServiceProviderImpl;
 import com.nwpu.registry.nacos.NacosServiceRegistry;
 import com.nwpu.serializer.CommonSerializer;
-import io.netty.bootstrap.Bootstrap;
+import com.nwpu.server.AbstRpcServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
@@ -24,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2022/4/17 19:42
  */
 @Slf4j
-public class NettyRpcServer extends AbstRpcServer{
+public class NettyRpcServer extends AbstRpcServer {
 
     private final CommonSerializer serializer;
 
