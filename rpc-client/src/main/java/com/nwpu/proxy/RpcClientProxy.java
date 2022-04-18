@@ -1,7 +1,7 @@
-package proxy;
+package com.nwpu.proxy;
 
-import client.NettyClient;
-import client.RpcClient;
+import com.nwpu.client.netty.NettyClient;
+import com.nwpu.client.RpcClient;
 import lombok.extern.slf4j.Slf4j;
 import com.nwpu.protocaol.RpcRequest;
 import com.nwpu.protocaol.RpcResponse;
@@ -44,16 +44,18 @@ public class RpcClientProxy implements InvocationHandler {
 
         if (client instanceof NettyClient) {
             try {
-                CompletableFuture<RpcResponse> completableFuture = (CompletableFuture<RpcResponse>) client.sendRequest(rpcRequest);
+                CompletableFuture<RpcResponse> completableFuture =
+                        (CompletableFuture<RpcResponse>) client.sendRequest(rpcRequest);
+
                 rpcResponse = completableFuture.get();
             } catch (Exception e) {
                 log.error("方法调用请求发送失败", e);
                 return null;
             }
         }
-//        FIXME
-//        if (client instanceof SocketClient) {
-//            rpcResponse = (RpcResponse) client.sendRequest(rpcRequest);
+//        FIXME-暂时只有netty的实现
+//        if (com.nwpu.client instanceof SocketClient) {
+//            rpcResponse = (RpcResponse) com.nwpu.client.sendRequest(rpcRequest);
 //        }
 //        RpcMessageChecker.check(rpcRequest, rpcResponse);
 

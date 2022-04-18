@@ -1,4 +1,4 @@
-package loadBalancer;
+package com.nwpu.loadBalancer;
 
 import com.alibaba.nacos.api.naming.pojo.Instance;
 

@@ -1,4 +1,4 @@
-package client;
+package com.nwpu.client;
 
 import com.nwpu.protocaol.RpcRequest;
 import com.nwpu.serializer.CommonSerializer;

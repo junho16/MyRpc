@@ -1,4 +1,4 @@
-package discovery;
+package com.nwpu.discovery;
 
 import java.net.InetSocketAddress;
 

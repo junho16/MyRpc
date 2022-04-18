@@ -11,7 +11,7 @@
     <modules>
         <module>rpc-core</module>
         <module>rpc-common</module>
-        <module>rpc-client</module>
+        <module>rpc-com.nwpu.client</module>
         <module>rpc-server</module>
         <module>rpc-test</module>
     </modules>

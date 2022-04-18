@@ -1,13 +1,13 @@
-package discovery.nacos;
+package com.nwpu.discovery.nacos;
 
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.nwpu.constant.RpcError;
 import com.nwpu.exception.RpcException;
 import com.nwpu.util.nacos.NacosUtil;
-import discovery.ServiceDiscovery;
-import loadBalancer.LoadBalancer;
-import loadBalancer.RandomLoadBalancer;
+import com.nwpu.discovery.ServiceDiscovery;
+import com.nwpu.loadBalancer.LoadBalancer;
+import com.nwpu.loadBalancer.RandomLoadBalancer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
